@@ -35,4 +35,4 @@ if __name__ == "__main__":
                 continue
         await idle()
     asyncio.get_event_loop().run_until_complete(main())
-    LOGGER.info("<---🦅 Stopped baby💞 --->")
+    LOGGER.info("<---🦅 Stopped 💞 --->")
