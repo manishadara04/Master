@@ -4,7 +4,7 @@ import shutil
 import os
 from master import masterdl
 
-@bot.on_message(filters.command("saini"))#Here You Can Change Command
+@bot.on_message(filters.command("maya"))#Here You Can Change Command
 async def account_login(bot, m):
     try:
         Credit = Config.CREDIT
@@ -69,11 +69,11 @@ async def account_login(bot, m):
         try:
             await bot.send_message(chat_id=channel_id, text=f'🎯**Target Batch - {b_name}**')
         except Exception as e:
-            await m.reply_text(f"**Please remake a admin in channel..**\n\n**Bot Made By** 🔰『{Credit}🔰")
+            await m.reply_text(f"**Please remake a admin in channel..**\n\n**Bot Made By** 🔰『{silence}🔰")
             channel_id=m.chat.id
         await editable.delete()
         await masterdl.process_links(links, raw_text, raw_text2, token, b_name, MR, channel_id, bot, m, path, thumb, Credit)
     except Exception as e:
-        await m.reply_text(f"**⚠️Downloading Failed⚠️**\n\n**Fail Reason »** {e}\n\n**╰────⌈✨ 『{Credit}』 ✨**⌋────╯")
+        await m.reply_text(f"**⚠️Downloading Failed⚠️**\n\n**Fail Reason »** {e}\n\n**╰────⌈✨ 『{SILENCE}』 ✨**⌋────╯")
         return
     
