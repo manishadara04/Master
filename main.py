@@ -3,6 +3,16 @@ import asyncio
 import logging
 from config import Config  # Import Config class here
 
+logging.basicConfig(
+    level=logging.INFO,    
+    format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s",
+    datefmt='%d-%b-%y %H:%M:%S'
+)
+LOGGER = logging.getLogger(__name__)
+LOGGER.info("Live log streaming to telegram.")
+
+plugins = dict(root="plugins")
+
 if __name__ == "__main__":
     bot = bot(
         "Bot",
