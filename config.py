@@ -1,17 +1,15 @@
 import os
-import os
 from flask import Flask
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route('/')
 def home():
-    return "Hello, Render!"
+    return "Your service is running!"
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port)
-
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)
+    
 class Config(object):
     BOT_TOKEN = os.environ.get("BOT_TOKEN", '')
     API_ID = int(os.environ.get("API_ID", '27536109'))
