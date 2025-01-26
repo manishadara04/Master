@@ -1,4 +1,4 @@
-from config import API_ID, API_HASH, BOT_TOKEN, AUTH_USER
+from config import config 
 from pyrogram import Client as bot, idle
 import asyncio
 import logging
