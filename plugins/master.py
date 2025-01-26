@@ -74,6 +74,6 @@ async def account_login(bot, m):
         await editable.delete()
         await masterdl.process_links(links, raw_text, raw_text2, token, b_name, MR, channel_id, bot, m, path, thumb, Credit)
     except Exception as e:
-        await m.reply_text(f"**⚠️Downloading Failed⚠️**\n\n**Fail Reason »** {e}\n\n**╰────⌈✨ 『{SILENCE}』 ✨**⌋────╯")
+        await m.reply_text(f"**⚠️Downloading Failed⚠️**\n\n**Fail Reason »** {e}\n\n**╰────⌈✨ 『{ url}』 ✨**⌋────╯")
         return
     
