@@ -12,7 +12,7 @@ def home():
     return "Hello, World!"
 
 if __name__ == '__main__':
-    app.run(debug=True)app.run
+    app.run(debug=True)
     
 logging.basicConfig(
     level=logging.INFO,    
