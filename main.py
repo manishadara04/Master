@@ -1,8 +1,8 @@
-from config import Config
+from config import  API_ID, API_HASH, BOT_TOKEN
 from pyrogram import Client as bot, idle
 import asyncio
 import logging
-from config import flask
+
 logging.basicConfig(
     level=logging.INFO,    
     format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s",
