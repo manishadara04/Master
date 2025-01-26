@@ -2,7 +2,23 @@ from pyrogram import Client as bot, idle
 import asyncio
 import logging
 from config import Config  # Import Config class here
+from flask import Flask
+import os
+import sys
 
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
+
+if __name__ == "__main__":
+    # Get the port from environment variable or default to 8080
+    port = int(os.getenv('PORT', 8080))
+    
+    # Run the Flask app on the specified port and listen on all interfaces
+    app.run(host="0.0.0.0", port=port)
+    
 logging.basicConfig(
     level=logging.INFO,    
     format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s",
