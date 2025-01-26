@@ -1,4 +1,4 @@
- from pyrogram import Client as bot, idle
+from pyrogram import Client as bot, idle
 import asyncio
 import logging
 from flask import Flask
