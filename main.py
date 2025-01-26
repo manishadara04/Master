@@ -2,7 +2,7 @@ from pyrogram import Client as bot, idle
 import asyncio
 import logging
 from config import Config  # Import Config class here
-from master import Flask
+from flask import Flask
 import os
 import sys
 
