@@ -3,4 +3,4 @@ services:
     name: flask-app
     env: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn -w 3 -k gevent -b 0.0.0.0:$PORT --timeout 60 --graceful-timeout 30 --access-logfile '-' --error-logfile '-' --preload --worker-connections 1000 main:app"
+    startCommand: "gunicorn -w 3 -k gevent -b 0.0.0.0:$PORT --timeout 60 --graceful-timeout 30 --access-logfile '-' --error-logfile '-' --preload --worker-connections 1000 main:app/python main.py"
