@@ -1,13 +1,10 @@
-from flask import Flask
-import os
+from aiohttp import web
 
-app = Flask(__name__)
+async def handle(request):
+    return web.Response(text="Hello, Koyeb!")
 
-@app.route("/")
-def home():
-    return "Hello, Docker!"
+app = web.Application()
+app.router.add_get('/', handle)
 
-if __name__ == "__main__":
-    # Get the port from the environment variable or use 8000 by default
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port)
+if __name__ == '__main__':
+    web.run_app(app, host='0.0.0.0', port=8080)
