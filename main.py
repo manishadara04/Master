@@ -1,5 +1,5 @@
 from config import Config
-from pyrogram import Client as bot, idle
+from pyrogram import Client, idle
 import asyncio
 import logging
 
