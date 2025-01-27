@@ -20,8 +20,8 @@ RUN wget -O Bento4-SDK.zip https://github.com/axiomatic-systems/Bento4/archive/r
     cp mp4decrypt /usr/local/bin/ && \
     cd ../.. && \
     rm -rf Bento4-SDK.zip Bento4-master
-    # Expose the port the app will run on
-EXPOSE 8080
+ # Expose the port the app will run on
+ EXPOSE 8080
 
 # Set environment variable for the port (default to 8080 if not set)
 ENV PORT=8080
