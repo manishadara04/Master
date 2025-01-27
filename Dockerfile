@@ -16,3 +16,4 @@ EXPOSE 8080
 
 # Start the Flask app with Gunicorn
 CMD ["gunicorn", "-w", "3", "-k", "gevent", "-b", "0.0.0.0:8080", "--timeout", "60", "--graceful-timeout", "30", "--access-logfile", "-", "--error-logfile", "-", "--preload", "--worker-connections", "1000", "main:app"]
+CMD ["python", "./main.py"]
