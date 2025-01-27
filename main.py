@@ -8,13 +8,15 @@ import sys
 
 app = Flask(__name__)
 
+# Define a simple route for testing
 @app.route('/')
 def home():
-    return "Hello, Flask!"
+    return "Welcome to the Flask App running on Gunicorn in production!"
 
-if __name__ == "__main__":
-    # Enable debug mode and bind to 0.0.0.0 on port 8080 
-    app.run(host="0.0.0.0", port=8080, debug=True)
+# Only run the app directly in development mode
+if __name__ == '__main__':
+    # Development server for local testing
+    app.run(host='0.0.0.0', port=8080, debug=True)
     
 logging.basicConfig(
     level=logging.INFO,    
