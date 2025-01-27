@@ -28,17 +28,6 @@ LOGGER.info("Live log streaming to telegram.")
 
 plugins = dict(root="plugins")
 
-   async def main():
-    # Correct indentation
-    await start_bot()()
-
-    # Keep the program running
-    try:
-        while True:
-            await bot.polling()  # Run forever, or until interrupted
-    except (KeyboardInterrupt, SystemExit):
-        await stop_bot()
-    
 if __name__ == "__main__":
     bot = bot(
         "Bot",
@@ -63,6 +52,3 @@ if __name__ == "__main__":
         # Entry point
 if __name__ == "__main__":
     asyncio.run(main())
-    
-    asyncio.get_event_loop().run_until_complete(main())
-    LOGGER.info("<---🦅 Stopped 💞 --->")
