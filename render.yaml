@@ -1,7 +1,7 @@
 services:
   - type: web
     name: my-python-app
-    port: 3128
+    port: 8080
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: python3 config.py
