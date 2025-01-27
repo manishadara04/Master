@@ -21,7 +21,7 @@ pytz
 ffmpeg
 umongo==3.1.0
 speedtest-cli
-flask
+flask==2.1.3
 gunicorn==20.1.0
 Jinja2==3.0.3
 werkzeug==2.0.2
@@ -29,3 +29,4 @@ itsdangerous==2.0.1
 ffmpeg
 youtube-dl
 yt-dlp 
+gevent==22.10.2
