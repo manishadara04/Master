@@ -6,17 +6,17 @@ from flask import Flask
 import os
 import sys
 
+# Create Flask app
 app = Flask(__name__)
 
 # Define a simple route for testing
 @app.route('/')
 def home():
-    return "Welcome to the Flask App running on Gunicorn in production!"
+    return "Welcome to the production-ready Flask app!"
 
-# Only run the app directly in development mode
+# Debug mode is only enabled when running locally
 if __name__ == '__main__':
-    # Development server for local testing
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
     
 logging.basicConfig(
     level=logging.INFO,    
