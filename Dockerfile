@@ -1,30 +1,18 @@
-FROM python:3.12.1
+# Use a lightweight Python base image
+FROM python:3.9-slim
+
+# Set the working directory in the container
 WORKDIR /app
+
+# Copy requirements.txt and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code
 COPY . .
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    ffmpeg \
-    aria2 \
-    wget \
-    build-essential \
-    cmake \
-    && rm -rf /var/lib/apt/lists/*
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r master.txt
-RUN wget -O Bento4-SDK.zip https://github.com/axiomatic-systems/Bento4/archive/refs/heads/master.zip && \
-    unzip Bento4-SDK.zip && \
-    cd Bento4-master && \
-    mkdir build && cd build && \
-    cmake .. && \
-    make mp4decrypt && \
-    cp mp4decrypt /usr/local/bin/ && \
-    cd ../.. && \
-    rm -rf Bento4-SDK.zip Bento4-master
- # Expose the port the app will run on
- EXPOSE 8080
 
-# Set environment variable for the port (default to 8080 if not set)
-ENV PORT=8080
+# Expose the desired port (e.g., 8080)
+EXPOSE 8080
 
-# Optionally, use CMD to ensure the app listens on the PORT
-CMD ["python", "./main.py"]
+# Start the Flask app using Gunicorn
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8080", "main:app"]
