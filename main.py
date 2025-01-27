@@ -28,8 +28,9 @@ LOGGER.info("Live log streaming to telegram.")
 
 plugins = dict(root="plugins")
 
-   # Start the bot
-    await start_bot()
+   async def main():
+    # Correct indentation
+    await start_bot()()
 
     # Keep the program running
     try:
