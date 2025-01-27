@@ -1,5 +1,5 @@
 FROM python:3.12.1
-WORKDIR /app
+WORKDIR ./app
 COPY . ./app
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
