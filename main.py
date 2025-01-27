@@ -49,5 +49,9 @@ if __name__ == "__main__":
                 LOGGER.error(f"Failed to send message to user {user_id}: {e}")
                 continue
         await idle()
+        # Entry point
+if __name__ == "__main__":
+    asyncio.run(main())
+    
     asyncio.get_event_loop().run_until_complete(main())
     LOGGER.info("<---🦅 Stopped 💞 --->")
