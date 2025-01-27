@@ -2,6 +2,7 @@ from config import Config
 from pyrogram import Client, idle
 import asyncio
 import logging
+from aiohttp import web
 
 # Initialize the bot
 bot = Client(
