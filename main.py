@@ -28,6 +28,16 @@ LOGGER.info("Live log streaming to telegram.")
 
 plugins = dict(root="plugins")
 
+   # Start the bot
+    await start_bot()
+
+    # Keep the program running
+    try:
+        while True:
+            await bot.polling()  # Run forever, or until interrupted
+    except (KeyboardInterrupt, SystemExit):
+        await stop_bot()
+    
 if __name__ == "__main__":
     bot = bot(
         "Bot",
