@@ -10,10 +10,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Your Flask app is running and accessible on the web!"
+    return "Hello, Flask!"
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    # Enable debug mode and bind to 0.0.0.0 on port 8080
+    app.run(host="0.0.0.0", port=8080, debug=True)
     
 logging.basicConfig(
     level=logging.INFO,    
