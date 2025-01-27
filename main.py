@@ -47,23 +47,6 @@ async def start_bot():
         logger.error(f"Error while starting the bot: {e}")
         raise
 
-# Web server initialization
-async def start_server():
-    try:
-        app = web.Application()
-        app.router.add_get("/", handle)
-
-        port = int(os.environ.get("PORT", 8080))  # Default port: 8080
-        runner = web.AppRunner(app)
-        await runner.setup()
-        site = web.TCPSite(runner, "0.0.0.0", port)
-        await site.start()
-
-        logger.info(f"Web server running on port {port}")
-    except Exception as e:
-        logger.error(f"Error while starting the web server: {e}")
-        raise
-
 # Main function to run both the bot and server
 async def main():
     try:
