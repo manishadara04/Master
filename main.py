@@ -1,63 +1,42 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-import os
-import logging
-from aiohttp import web
-import asyncio
 from config import Config
-from pyrogram import Client
+from pyrogram import Client as bot, idle
+import asyncio
+import logging
 
-# Logging setup
 logging.basicConfig(
-    level=logging.INFO, 
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    level=logging.INFO,    
+    format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s",
+    datefmt='%d-%b-%y %H:%M:%S'
 )
-logger = logging.getLogger(__name__)
-logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
-# Web handler
-async def handle(request):
-    return web.Response(text="Bot is running")
+LOGGER = logging.getLogger(__name__)
 
-# Bot initialization and startup
-async def start_bot():
-    try:
-        # Ensure download directory exists
-        if not os.path.isdir(Config.DOWNLOAD_LOCATION):
-            os.makedirs(Config.DOWNLOAD_LOCATION)
+LOGGER.info("Live log streaming to telegram.")
+plugins = dict(root="plugins")
 
-        # Plugin configuration
-        plugins = dict(root="plugins")
-
-        # Initialize the bot
-        bot = Client(
-            "my_bot",  # This is the session name
-            bot_token=Config.BOT_TOKEN,
-            api_id=Config.API_ID,
-            api_hash=Config.API_HASH,
-            plugins=plugins
-        )
-        
-        # Start the bot
-        await bot.start()
-        logger.info("Bot started successfully.")
-        await asyncio.Event().wait()  # Keep the bot running
-    except Exception as e:
-        logger.error(f"Error while starting the bot: {e}")
-        raise
-
-# Main function to run both the bot and server
-async def main():
-    try:
-        await asyncio.gather(
-            start_server(),  # Start web server
-            start_bot()      # Start Telegram bot
-        )
-    except Exception as e:
-        logger.error(f"Error in main: {e}")
-
-# Entry point
 if __name__ == "__main__":
-    asyncio.run(main())
-    
+
+    bot = bot(
+        "Bot",
+        bot_token=Config.BOT_TOKEN,
+        api_id=Config.API_ID,
+        api_hash=Config.API_HASH,
+        sleep_threshold=120,
+        plugins=plugins,
+        workers=10,
+    )
+
+    async def main():
+        await bot.start()
+        bot_info = await bot.get_me()
+        LOGGER.info(f"<--- @{bot_info.username} Started --->")
+        for user_id in Config.AUTH_USERS:
+
+            try:
+                await bot.send_message(chat_id=user_id, text=f"__Congrats! You Are DRM member ... if You get any error then contact me -  {Config.CREDIT}__ ")
+            except Exception as e:
+                LOGGER.error(f"Failed to send message to user {user_id}: {e}")
+                continue
+        await idle()
+    asyncio.get_event_loop().run_until_complete(main())
+    LOGGER.info("<---🦅 Stopped baby💞 --->")
