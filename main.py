@@ -3,15 +3,21 @@ from pyrogram import Client as bot, idle
 import asyncio
 import logging
 
-    bot = bot(
-        "Bot",
-        bot_token=Config.BOT_TOKEN,
-        api_id=Config.API_ID,
-        api_hash=Config.API_HASH,
-        sleep_threshold=120,
-        plugins=plugins,
-        workers=10,
-    )
+# Initialize the bot
+bot = Client(
+    "bot",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=BOT_TOKEN
+)
+
+# Define aiohttp routes
+routes = web.RouteTableDef()
+
+@routes.get("/", allow_head=True)
+async def root_route_handler(request):
+    return web.json_response("https://text-leech-bot-for-render.onrender.com/")
+
 async def web_server():
     web_app = web.Application(client_max_size=30000000)
     web_app.add_routes(routes)
