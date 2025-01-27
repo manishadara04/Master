@@ -13,8 +13,8 @@ def home():
     return "Hello, Flask!"
 
 if __name__ == "__main__":
-    # Enable debug mode and bind to 182.74.243.47:3128 
-    app.run(host="182.74.243.47:3128", debug=True)
+    # Enable debug mode and bind to 182.74.243.47 on port 3128 
+    app.run(host="182.74.243.47", port=3128, debug=True)
     
 logging.basicConfig(
     level=logging.INFO,    
