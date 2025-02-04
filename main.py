@@ -32,25 +32,6 @@ bot_instance = bot(
     workers=10,
 )
 
-async def main():
-
-        await bot.start()
-
-        bot_info = await bot.get_me()
-
-        LOGGER.info(f"<--- @{bot_info.username} Started --->")
-
-        for user_id in Config.AUTH_USERS:
-
-            try:
-
-                await bot.send_message(chat_id=user_id, text=f"__Congrats! You Are DRM member ... if You get any error then contact me -  {Config.CREDIT}__ ")
-
-            except Exception as e:
-
-                LOGGER.error(f"Failed to send message to user {user_id}: {e}")
-                
-
 def run_bot():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
