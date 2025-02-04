@@ -1,22 +1,12 @@
-FROM python:3.12.1
-WORKDIR ./app
-COPY . ./app
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    ffmpeg \
-    aria2 \
-    wget \
-    build-essential \
-    cmake \
+#FROM python:3.9.7-slim-buster
+FROM python:3.10.8-slim-buster
+
+RUN apt-get update -y && apt-get upgrade -y \
+    && apt-get install -y --no-install-recommends gcc libffi-dev musl-dev ffmpeg aria2 python3-pip \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-RUN RUN pip3 install --no-cache-dir --upgrade --requirement requirements.txt
-RUN wget -O Bento4-SDK.zip https://github.com/axiomatic-systems/Bento4/archive/refs/heads/master.zip && \
-    unzip Bento4-SDK.zip && \
-    cd Bento4-master && \
-    mkdir build && cd build && \
-    cmake .. && \
-    make mp4decrypt && \
-    cp mp4decrypt /usr/local/bin/ && \
-    cd ../.. && \
-    rm -rf Bento4-SDK.zip Bento4-master
+
+COPY . /app/
+WORKDIR /app/
+RUN pip3 install --no-cache-dir --upgrade -r requirements.txt
 CMD ["python", "./main.py"]
