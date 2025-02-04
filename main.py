@@ -53,7 +53,7 @@ async def run_bot():
     await idle()
 
 def run_flask():
-    app.run(host='0.0.0.0', port=8080, debug=False)
+    app.run(host='0.0.0.0', port=5001, debug=False)  # Use a different port, e.g., 5001
 
 if __name__ == '__main__':
     # Run Flask app and bot in parallel
@@ -62,7 +62,7 @@ if __name__ == '__main__':
     flask_process = Process(target=run_flask)
     flask_process.start()
 
-    bot_process = Process(target=run_bot)
+    bot_process = Process(target=asyncio.run, args=(run_bot(),))
     bot_process.start()
 
     flask_process.join()
