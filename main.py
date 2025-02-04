@@ -44,7 +44,18 @@ async def start_bot():
             continue
     await idle()
 
-if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
+def run_bot():
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
     loop.create_task(start_bot())
-    app.run(host='0.0.0.0', port=5000)
+    loop.run_forever()
+
+if __name__ == '__main__':
+    # Run Flask app and bot in parallel
+    from multiprocessing import Process
+
+    bot_process = Process(target=run_bot)
+    bot_process.start()
+
+    app.run(host='0.0.0.0', port=5000, debug=False)
+    bot_process.join()
