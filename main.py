@@ -1,53 +1,97 @@
-from config import Config
-from pyrogram import Client, idle
-import asyncio
-import logging
-from aiohttp import web
+ from pyrogram import Client as bot, idle
 
-# Initialize the bot
-bot = Client(
-    "bot",
-        bot_token=Config.BOT_TOKEN,
-        api_id=Config.API_ID,
-        api_hash=Config.API_HASH,
+import asyncio
+
+import logging
+
+from flask import Flask
+
+from config import Config  # Import Config class here
+
+
+
+app = Flask(__name__)
+
+app.config.from_object(Config)  # Apply the config to the app
+
+
+
+@app.route('/')
+
+def home():
+
+    return "Hello, World!"
+
+
+
+if __name__ == '__main__':
+
+    app.run(debug=True)app.run
+
+    
+
+logging.basicConfig(
+
+    level=logging.INFO,    
+
+    format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s",
+
+    datefmt='%d-%b-%y %H:%M:%S'
+
 )
 
-# Define aiohttp routes
-routes = web.RouteTableDef()
+LOGGER = logging.getLogger(__name__)
 
-@routes.get("/", allow_head=True)
-async def root_route_handler(request):
-    return web.json_response("https://text-leech-bot-for-render.onrender.com/")
+LOGGER.info("Live log streaming to telegram.")
 
-async def web_server():
-    web_app = web.Application(client_max_size=30000000)
-    web_app.add_routes(routes)
-    return web_app
 
-async def start_bot():
-    await bot.start()
-    print("Bot is up and running")
 
-async def stop_bot():
-    await bot.stop()
+plugins = dict(root="plugins")
 
-async def main():
-    if WEBHOOK:
-        # Start the web server
-        app_runner = web.AppRunner(await web_server())
-        await app_runner.setup()
-        site = web.TCPSite(app_runner, "0.0.0.0", PORT)
-        await site.start()
-        print(f"Web server started on port {PORT}")
 
-    # Start the bot
-    await start_bot()
 
-    # Keep the program running
-    try:
-        while True:
-            await bot.polling()  # Run forever, or until interrupted
-    except (KeyboardInterrupt, SystemExit):
-        await stop_bot()
-        
+if __name__ == "__main__":
 
+    bot = bot(
+
+        "Bot",
+
+        bot_token=Config.BOT_TOKEN,
+
+        api_id=Config.API_ID,
+
+        api_hash=Config.API_HASH,
+
+        sleep_threshold=120,
+
+        plugins=plugins,
+
+        workers=10,
+
+    )
+
+    async def main():
+
+        await bot.start()
+
+        bot_info = await bot.get_me()
+
+        LOGGER.info(f"<--- @{bot_info.username} Started --->")
+
+        for user_id in Config.AUTH_USERS:
+
+            try:
+
+                await bot.send_message(chat_id=user_id, text=f"__Congrats! You Are DRM member ... if You get any error then contact me -  {Config.CREDIT}__ ")
+
+            except Exception as e:
+
+                LOGGER.error(f"Failed to send message to user {user_id}: {e}")
+
+                continue
+
+        await idle()
+
+    asyncio.get_event_loop().run_until_complete(main())
+
+    LOGGER.info("<---🦅 Stopped 💞 --->")
