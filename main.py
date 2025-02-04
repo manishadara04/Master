@@ -49,14 +49,7 @@ async def main():
             except Exception as e:
 
                 LOGGER.error(f"Failed to send message to user {user_id}: {e}")
-
-                continue
-
-        await idle()
-
-    asyncio.get_event_loop().run_until_complete(main())
-
-    LOGGER.info("<---🦅 Stopped 💞 --->")
+                
 
 def run_bot():
     loop = asyncio.new_event_loop()
